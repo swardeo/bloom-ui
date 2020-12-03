@@ -13,20 +13,28 @@ Parameters:
     NoEcho: true
 
 Mappings:
-  SubdomainMap:
-    prod: 'www'
-    dev: 'dev'
+  EnvironmentMap:
+    prod:
+      Domains:
+        - www.bloom.money
+        - bloom.money
+      Subdomain: www
+    dev:
+      Domains:
+        - dev.bloom.money
+      Subdomain: dev
 
 Conditions:
-  CreateProdResource: !Equals [!Ref Environment, prod]
+  IsProduction: !Equals [!Ref Environment, prod]
 
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub '${environment}-bloom-ui'
+      BucketName: !Sub '${Environment}-bloom-ui'
 
   S3BucketPolicy:
+    DependsOn: S3Bucket
     Type: 'AWS::S3::BucketPolicy'
     Properties:
       Bucket: !Ref S3Bucket
@@ -40,30 +48,28 @@ Resources:
               CanonicalUser: 48860777e1ec678eba30711f5729357d68bab32b5bb5c345bfd804d95e0b0c3fd2a4f0ad098d089c34e18865c6f13837
 
   Distribution:
+    DependsOn: S3BucketPolicy
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: !GetAtt S3Bucket.DomainName
-            Id: S3Bucket
+          - DomainName: !Sub '${Environment}-bloom-ui.s3-eu-west-2.amazonaws.com'
+            Id: S3UIBucket
             S3OriginConfig:
               OriginAccessIdentity: origin-access-identity/cloudfront/EH2DBHR6UQ5CX
         Enabled: 'true'
-        Comment: TestDistribution
         DefaultRootObject: index.html
         CustomErrorResponses:
           - ErrorCode: 403
             ResponseCode: 200
             ResponsePagePath: /index.html
-        Aliases:
-          - bloom.money
-          - www.bloom.money
+        Aliases: !FindInMap [EnvironmentMap, Ref: Environment, Domains]
         DefaultCacheBehavior:
           AllowedMethods:
             - GET
             - HEAD
           Compress: true
-          TargetOriginId: S3Bucket
+          TargetOriginId: S3UIBucket
           ForwardedValues:
             QueryString: 'false'
             Cookies:
@@ -76,27 +82,28 @@ Resources:
           SslSupportMethod: sni-only
 
   SubdomainAlias:
+    DependsOn: Distribution
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneName: bloom.money.
-      Name:
-        Fb::Base64: !Sub ${Subdomain}.bloom.money.
-          - Subdomain:
-            !FindInMap
-              - SubdomainMap
-              - !Ref Environment
+      Name: !Sub
+        - ${Subdomain}.bloom.money.
+        - {
+            Subdomain: !FindInMap [EnvironmentMap, Ref: Environment, Subdomain],
+          }
       Type: A
       AliasTarget:
-        HostedZoneId: Z06243393HPIJKMSZCO5M
+        HostedZoneId: Z2FDTNDATAQYW2
         DNSName: !GetAtt Distribution.DomainName
 
   DomainAlias:
+    DependsOn: Distribution
     Type: AWS::Route53::RecordSet
-    Condition: CreateProdResource
+    Condition: IsProduction
     Properties:
       HostedZoneName: bloom.money.
       Name: bloom.money.
       Type: A
       AliasTarget:
-        HostedZoneId: Z06243393HPIJKMSZCO5M
+        HostedZoneId: Z2FDTNDATAQYW2
         DNSName: !GetAtt Distribution.DomainName

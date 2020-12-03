@@ -20,13 +20,15 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
+          aws-region: eu-west-2
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: prod-bloom-ui
+          name: dev-bloom-ui
           template: .cloudformation/stack.yaml
-          parameter-overrides: "Environment=dev,CertificateArn=${{ secrets.CERTIFICATE_ARN }}"
+          parameter-overrides: 'Environment=dev,CertificateArn=${{ secrets.CERTIFICATE_ARN }}'
+          no-fail-on-empty-changeset: '1'
       - name: Upload to Amazon S3
         run: aws s3 sync --cache-control 'max-age=604800' --exclude index.html build/ s3://dev-bloom-ui/
+      - name: Publish UI
         run: aws s3 sync --cache-control 'no-cache' build/ s3://dev-bloom-ui/

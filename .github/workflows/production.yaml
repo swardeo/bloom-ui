@@ -26,7 +26,9 @@ jobs:
         with:
           name: prod-bloom-ui
           template: .cloudformation/stack.yaml
-          parameter-overrides: "Environment=prod,CertificateArn=${{ secrets.CERTIFICATE_ARN }}"
+          parameter-overrides: 'Environment=prod,CertificateArn=${{ secrets.CERTIFICATE_ARN }}'
+          no-fail-on-empty-changeset: '1'
       - name: Upload to Amazon S3
         run: aws s3 sync --cache-control 'max-age=604800' --exclude index.html build/ s3://prod-bloom-ui/
+      - name: Publish UI
         run: aws s3 sync --cache-control 'no-cache' build/ s3://prod-bloom-ui/
