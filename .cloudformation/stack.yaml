@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Bloom UI Stack'
+
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues:
+      - prod
+      - dev
+
+  CertificateArn:
+    Type: String
+    NoEcho: true
+
+Mappings:
+  SubdomainMap:
+    prod: 'www'
+    dev: 'dev'
+
+Conditions:
+  CreateProdResource: !Equals [!Ref Environment, prod]
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${environment}-bloom-ui'
+
+  S3BucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action: 's3:GetObject'
+            Effect: 'Allow'
+            Resource: !Sub '${S3Bucket.Arn}/*'
+            Principal:
+              CanonicalUser: 48860777e1ec678eba30711f5729357d68bab32b5bb5c345bfd804d95e0b0c3fd2a4f0ad098d089c34e18865c6f13837
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !GetAtt S3Bucket.DomainName
+            Id: S3Bucket
+            S3OriginConfig:
+              OriginAccessIdentity: origin-access-identity/cloudfront/EH2DBHR6UQ5CX
+        Enabled: 'true'
+        Comment: TestDistribution
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        Aliases:
+          - bloom.money
+          - www.bloom.money
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          TargetOriginId: S3Bucket
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+
+  SubdomainAlias:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: bloom.money.
+      Name:
+        Fb::Base64: !Sub ${Subdomain}.bloom.money.
+          - Subdomain:
+            !FindInMap
+              - SubdomainMap
+              - !Ref Environment
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z06243393HPIJKMSZCO5M
+        DNSName: !GetAtt Distribution.DomainName
+
+  DomainAlias:
+    Type: AWS::Route53::RecordSet
+    Condition: CreateProdResource
+    Properties:
+      HostedZoneName: bloom.money.
+      Name: bloom.money.
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z06243393HPIJKMSZCO5M
+        DNSName: !GetAtt Distribution.DomainName
