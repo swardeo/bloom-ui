@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Bloom UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Production](https://github.com/swardeo/bloom-ui/workflows/Production%20Release/badge.svg?branch=master)
+
+![Development](https://github.com/swardeo/bloom-ui/workflows/Development%20Release/badge.svg)
+
+## What is Bloom?
+
+Bloom is my final year project at Aston University, which aims to help individuals explore a forecast of their financial situation.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+-   `yarn start` to run the application in development mode.
+-   `yarn test` to run the test runner.
+-   `yarn build` to build the application for production.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Storybook
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Storybook is used to help develop components in isolation. In the project directory, you can run:
 
-### `yarn test`
+-   `yarn storybook` to view Bloom's Storybook.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Deployment Environments
 
-### `yarn build`
+### Development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A pipeline will deploy the application to the development environment automatically when a pull request is raised against the master branch.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The development environment can be viewed at [dev.bloom.money](https://dev.bloom.money).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Production
 
-### `yarn eject`
+Another pipeline will deploy the application to the production environment automatically when a pull request has been merged to the master branch.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The production environment can be viewed at either [bloom.money](https://bloom.money) or [www.bloom.money](https://www.bloom.money).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Infrastructure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The application is deployed to Amazon Web Services.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The infrastructure is modelled using AWS CloudFormation templates, which can be viewed [here](.cloudformation/stack.yaml).
