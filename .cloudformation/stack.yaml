@@ -1,0 +1,109 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Bloom UI Stack'
+
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues:
+      - prod
+      - dev
+
+  CertificateArn:
+    Type: String
+    NoEcho: true
+
+Mappings:
+  EnvironmentMap:
+    prod:
+      Domains:
+        - www.bloom.money
+        - bloom.money
+      Subdomain: www
+    dev:
+      Domains:
+        - dev.bloom.money
+      Subdomain: dev
+
+Conditions:
+  IsProduction: !Equals [!Ref Environment, prod]
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${Environment}-bloom-ui'
+
+  S3BucketPolicy:
+    DependsOn: S3Bucket
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action: 's3:GetObject'
+            Effect: 'Allow'
+            Resource: !Sub '${S3Bucket.Arn}/*'
+            Principal:
+              CanonicalUser: 48860777e1ec678eba30711f5729357d68bab32b5bb5c345bfd804d95e0b0c3fd2a4f0ad098d089c34e18865c6f13837
+
+  Distribution:
+    DependsOn: S3BucketPolicy
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !Sub '${Environment}-bloom-ui.s3-eu-west-2.amazonaws.com'
+            Id: S3UIBucket
+            S3OriginConfig:
+              OriginAccessIdentity: origin-access-identity/cloudfront/EH2DBHR6UQ5CX
+        Enabled: 'true'
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        Aliases: !FindInMap [EnvironmentMap, Ref: Environment, Domains]
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          TargetOriginId: S3UIBucket
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          MinimumProtocolVersion: TLSv1.1_2016
+          SslSupportMethod: sni-only
+
+  SubdomainAlias:
+    DependsOn: Distribution
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: bloom.money.
+      Name: !Sub
+        - ${Subdomain}.bloom.money.
+        - {
+            Subdomain: !FindInMap [EnvironmentMap, Ref: Environment, Subdomain],
+          }
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z2FDTNDATAQYW2
+        DNSName: !GetAtt Distribution.DomainName
+
+  DomainAlias:
+    DependsOn: Distribution
+    Type: AWS::Route53::RecordSet
+    Condition: IsProduction
+    Properties:
+      HostedZoneName: bloom.money.
+      Name: bloom.money.
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z2FDTNDATAQYW2
+        DNSName: !GetAtt Distribution.DomainName
