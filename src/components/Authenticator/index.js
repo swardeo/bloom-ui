@@ -1,6 +1,7 @@
 import React from 'react';
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react';
 import PropTypes from 'prop-types';
+import { Typography, Link } from '@material-ui/core';
 
 const Authenticator = ({ initialState }) => {
     return (
@@ -33,22 +34,22 @@ const Authenticator = ({ initialState }) => {
                 ]}
             >
                 <div slot="header-subtitle">
-                    <p>
+                    <Typography variant="body2" gutterBottom>
                         By clicking on create account you are agreeing to
                         Bloom's{' '}
-                        <a href="/terms-of-service" target="_blank">
+                        <Link href="/terms-of-service" target="_blank">
                             Terms of Service
-                        </a>
+                        </Link>
                         .
-                    </p>
-                    <p>
+                    </Typography>
+                    <Typography variant="body2">
                         To learn more about how Bloom collects, uses, shares and
                         protects your personal data please read Bloom's{' '}
-                        <a href="/privacy-policy" target="_blank">
+                        <Link href="/privacy-policy" target="_blank">
                             Privacy Policy
-                        </a>
+                        </Link>
                         .
-                    </p>
+                    </Typography>
                 </div>
             </AmplifySignUp>
         </AmplifyAuthenticator>
