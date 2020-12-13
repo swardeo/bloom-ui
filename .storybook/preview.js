@@ -1,5 +1,4 @@
-import '../src/index.css';
+import { addDecorator } from '@storybook/react';
+import ThemeDecorator from './themeDecorator';
 
-export const parameters = {
-    actions: { argTypesRegex: '^on[A-Z].*' },
-};
+addDecorator(ThemeDecorator);
