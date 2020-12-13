@@ -16,11 +16,19 @@ In the project directory, you can run:
 -   `yarn test` to run the test runner.
 -   `yarn build` to build the application for production.
 
-## Storybook
+## Local Usage
+
+### Storybook
 
 Storybook is used to help develop components in isolation. In the project directory, you can run:
 
 -   `yarn storybook` to view Bloom's Storybook.
+
+### Running Locally
+
+Running the application in a local, offline environment is not currently possible due to needing to authenticate with Amazon Cognito.
+
+When running the application locally, you will instead be connected to the live development stack.
 
 ## Deployment Environments
 

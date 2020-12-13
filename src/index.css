@@ -1,8 +1,24 @@
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 700;
+    src: url('./theme/fonts/roboto/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: url('./theme/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    font-weight: 400;
+    src: url('./theme/fonts/openSans/OpenSans-Regular.ttf') format('truetype');
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: Roboto, OpenSans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +26,12 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+:root {
+    --amplify-font-family: OpenSans, Roboto;
+    --amplify-primary-color: #457b9d;
+    --amplify-primary-shade: #a8dadc;
+    --amplify-primary-tint: #a8dadc;
+    --amplify-secondary-color: #1d3557;
 }
