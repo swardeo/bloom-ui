@@ -12,6 +12,10 @@ let theme = createMuiTheme({
         info: {
             main: '#A8DADC',
         },
+        text: {
+            primary: '#1D3557',
+            secondary: '#fff',
+        },
     },
 });
 
