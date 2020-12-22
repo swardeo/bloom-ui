@@ -33,7 +33,7 @@ const StyledNav = styled(List)({
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
     textDecoration: 'none',
     textTransform: 'capitalize',
-    fontSize: theme.typography.h4.fontSize,
+    fontSize: theme.typography.h5.fontSize,
 }));
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
