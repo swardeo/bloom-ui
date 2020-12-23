@@ -92,7 +92,7 @@ const Header = ({ authenticated }) => {
 
     return (
         <HideOnScroll>
-            <StyledAppBar position="fixed">
+            <StyledAppBar position="sticky">
                 <Toolbar>
                     <StyledContainer maxWidth="md">
                         <Hidden mdUp>

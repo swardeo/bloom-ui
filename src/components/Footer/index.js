@@ -15,8 +15,9 @@ import logo from '../../assets/logo-no-text.png';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
     display: 'flex',
-    position: 'absolute',
+    position: 'relative',
     textAlign: 'center',
+    clear: 'both',
     bottom: 0,
     width: '100%',
     background: theme.palette.primary.main,
