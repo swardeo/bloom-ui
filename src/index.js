@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import config from './config';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,22 @@ Amplify.configure({
         userPoolId: config.cognito.USER_POOL_ID,
         identityPoolId: config.cognito.IDENTITY_POOL_ID,
         userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+    },
+    API: {
+        endpoints: [
+            {
+                name: config.api.NAME,
+                endpoint: config.api.ENDPOINT,
+                region: 'eu-west-1',
+                custom_header: async () => {
+                    return {
+                        Authorization: (await Auth.currentSession())
+                            .getIdToken()
+                            .getJwtToken(),
+                    };
+                },
+            },
+        ],
     },
 });
 
