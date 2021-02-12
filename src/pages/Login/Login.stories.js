@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './index';
-import { MemoryRouter } from 'react-router-dom';
+import { AuthContext } from '../../util/auth';
 
 export default {
     title: 'Pages/Login',
@@ -8,7 +8,7 @@ export default {
 };
 
 export const LoginPage = () => (
-    <MemoryRouter>
+    <AuthContext.Provider value={null}>
         <Login />
-    </MemoryRouter>
+    </AuthContext.Provider>
 );

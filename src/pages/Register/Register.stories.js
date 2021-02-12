@@ -1,6 +1,6 @@
 import React from 'react';
 import Register from './index';
-import { MemoryRouter } from 'react-router-dom';
+import { AuthContext } from '../../util/auth';
 
 export default {
     title: 'Pages/Register',
@@ -8,7 +8,7 @@ export default {
 };
 
 export const RegisterPage = () => (
-    <MemoryRouter>
+    <AuthContext.Provider value={null}>
         <Register />
-    </MemoryRouter>
+    </AuthContext.Provider>
 );

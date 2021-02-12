@@ -20,7 +20,6 @@ Amplify.configure({
             {
                 name: config.api.NAME,
                 endpoint: config.api.ENDPOINT,
-                region: 'eu-west-1',
                 custom_header: async () => {
                     return {
                         Authorization: (await Auth.currentSession())
