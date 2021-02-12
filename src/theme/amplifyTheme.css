@@ -5,3 +5,7 @@
     --amplify-primary-tint: #a8dadc;
     --amplify-secondary-color: #1d3557;
 }
+
+amplify-authenticator {
+    --container-height: 50vh;
+}

@@ -18,13 +18,12 @@ const StyledFooter = styled('footer')(({ theme }) => ({
     position: 'relative',
     textAlign: 'center',
     clear: 'both',
-    bottom: 0,
-    width: '100%',
     background: theme.palette.primary.main,
+    marginTop: theme.spacing(5),
 }));
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-    color: theme.palette.text.secondary,
+    color: theme.palette.common.white,
     fontSize: theme.typography.subtitle1.fontSize,
 }));
 
@@ -34,6 +33,7 @@ const StyledText = styled(Typography)(({ theme }) => ({
     },
     width: '70%',
     margin: `${theme.spacing(1)}px auto`,
+    color: theme.palette.common.white,
 }));
 
 const StyledLogo = styled('img')(({ theme }) => ({
@@ -41,14 +41,14 @@ const StyledLogo = styled('img')(({ theme }) => ({
         height: '50px',
     },
     height: '75px',
-    background: theme.palette.text.secondary,
+    background: theme.palette.background.default,
     border: `3px solid ${theme.palette.secondary.main}`,
     borderRadius: '20px',
 }));
 
 const StyledDivider = styled(Divider)(({ theme }) => ({
     marginBottom: theme.spacing(1),
-    backgroundColor: theme.palette.text.secondary,
+    backgroundColor: theme.palette.background.default,
 }));
 
 const renderLinks = (links) => {
@@ -78,7 +78,7 @@ const Footer = () => {
             <Container maxWidth="md">
                 <Grid container justify="space-evenly">
                     <Grid item md={6} xs={12}>
-                        <StyledText variant="body1" color="textSecondary">
+                        <StyledText variant="body1">
                             Bloom has been created by Sam Ward for his Final
                             Year Project at Aston University.
                         </StyledText>
@@ -97,13 +97,9 @@ const Footer = () => {
                 </Grid>
                 <StyledDivider variant="middle" />
                 <Container>
-                    <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        gutterBottom
-                    >
+                    <StyledText variant="body2">
                         &#169; Bloom {new Date().getFullYear()}
-                    </Typography>
+                    </StyledText>
                 </Container>
             </Container>
         </StyledFooter>

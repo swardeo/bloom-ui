@@ -14,7 +14,22 @@ let theme = createMuiTheme({
         },
         text: {
             primary: '#1D3557',
-            secondary: '#fff',
+            secondary: '#3663A2',
+        },
+        error: {
+            main: '#E63946',
+        },
+    },
+    overrides: {
+        MuiFormLabel: {
+            root: {
+                color: '#3663A2',
+            },
+        },
+        MuiBreadcrumbs: {
+            root: {
+                fontSize: '1.25rem',
+            },
         },
     },
 });

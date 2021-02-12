@@ -1,20 +1,19 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Authenticator from '../../components/Authenticator';
-import Header from '../../components/Header';
-import useCurrentUser from '../../util/useCurrentUser';
+import Page from '../../components/Page';
+import { useAuth } from '../../util/auth';
 
 const Login = () => {
-    const userStatus = useCurrentUser();
-    const isLoggedIn = null !== userStatus;
+    const user = useAuth();
+    const isLoggedIn = null !== user;
 
     return isLoggedIn ? (
-        <Redirect to="/" />
+        <Redirect to="/dashboard" />
     ) : (
-        <>
-            <Header />
+        <Page>
             <Authenticator initialState="signin" />
-        </>
+        </Page>
     );
 };
 
