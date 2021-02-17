@@ -22,17 +22,22 @@ const StyledBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
 }));
 
-const Page = ({ children }) => {
+const Page = ({ maxWidth, children }) => {
     return (
         <StyledBox>
             <ApplicationHeader />
-            <StyledContainer maxWidth="md">{children}</StyledContainer>
+            <StyledContainer maxWidth={maxWidth}>{children}</StyledContainer>
             <Footer />
         </StyledBox>
     );
 };
 
+Page.defaultProps = {
+    maxWidth: 'md',
+};
+
 Page.propTypes = {
+    maxWidth: PropTypes.oneOf(['md', 'lg']),
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
 };
 

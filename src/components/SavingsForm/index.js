@@ -536,7 +536,7 @@ const SavingsForm = ({ action, saving }) => {
                                                 />
                                             }
                                             control={control}
-                                            defaultValue={values.amount}
+                                            defaultValue={values.rate}
                                             rules={{
                                                 required: 'Required',
                                                 pattern: {

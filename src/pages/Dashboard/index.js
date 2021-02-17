@@ -1,15 +1,103 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ApplicationNavigation from '../../components/ApplicationNavigation';
+import Graph from '../../components/Graph';
+import plot from '../../data';
 import Page from '../../components/Page';
-import { Typography } from '@material-ui/core';
+import { API } from 'aws-amplify';
+import config from '../../config';
+import { styled } from '@material-ui/core/styles';
+import {
+    Grid,
+    CircularProgress,
+    Container,
+    Divider,
+    Typography,
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import { Redirect } from 'react-router-dom';
+import { useAuth } from '../../util/auth';
+
+const StyledProgress = styled(CircularProgress)(({ theme }) => ({
+    marginTop: theme.spacing(5),
+}));
+
+const StyledDivider = styled(Divider)(({ theme }) => ({
+    marginBottom: theme.spacing(2),
+}));
+
+const StyledText = styled(Typography)(({ theme }) => ({
+    fontSize: theme.typography.h5.fontSize,
+}));
 
 const Dashboard = () => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [plottedData, setPlottedData] = useState();
+    const user = useAuth();
+
+    useEffect(() => {
+        listSavings();
+    }, []);
+
+    const listSavings = async () => {
+        await API.get(config.api.NAME, '/savings', null)
+            .then((response) => {
+                const plotted = plot(response);
+                setPlottedData(plotted);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError(true);
+            });
+    };
+
+    const Content = () => {
+        return plottedData.length > 0 ? (
+            <>
+                <Typography variant="h4" gutterBottom>
+                    My Dashboard
+                </Typography>
+                <StyledDivider />
+                <StyledText>
+                    {user.attributes.given_name}, here is your financial
+                    forecast
+                </StyledText>
+                <Graph data={plottedData} />
+                <Container maxWidth="sm">
+                    <Alert severity="warning" variant="outlined">
+                        Bloom has been created by a student at Aston University
+                        and does not serve as financial advice in any capacity.
+                    </Alert>
+                </Container>
+            </>
+        ) : (
+            <>
+                <Typography variant="h6" gutterBottom>
+                    You have not yet added any savings or debts.
+                </Typography>
+                <Typography>
+                    To get started please add new savings or debts.
+                </Typography>
+            </>
+        );
+    };
+
+    if (loading) {
+        return (
+            <Page>
+                <Grid container justify="center">
+                    <StyledProgress />
+                </Grid>
+            </Page>
+        );
+    }
+    if (error) {
+        return <Redirect to="/oops" />;
+    }
     return (
-        <Page>
+        <Page maxWidth={plottedData.length > 0 ? 'lg' : 'md'}>
             <ApplicationNavigation />
-            <Typography variant="h4" gutterBottom>
-                Dashboard
-            </Typography>
+            <Content />
         </Page>
     );
 };

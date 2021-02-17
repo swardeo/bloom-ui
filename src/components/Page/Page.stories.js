@@ -34,3 +34,9 @@ export const NoContentPage = () => (
         <></>
     </Page>
 );
+
+export const LargePage = () => (
+    <Page maxWidth="lg">
+        <></>
+    </Page>
+);

@@ -63,7 +63,7 @@ const ListSavings = ({ savings, handleEdit }) => {
     const history = useHistory();
 
     const isSavings = savings.length > 0;
-    const tableSize = useMediaQuery((theme) => theme.breakpoints.down(''))
+    const tableSize = useMediaQuery((theme) => theme.breakpoints.down('sm'))
         ? 'small'
         : 'medium';
 
