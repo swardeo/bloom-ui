@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install
-        run: yarn --no-progress --non-interactive --frozen-lockfile
+        run: yarn install --no-progress --non-interactive --frozen-lockfile
       - name: Test
         run: yarn test
       - name: Build
