@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ApplicationNavigation from '../../components/ApplicationNavigation';
-import SavingsForm from '../../components/SavingsForm';
-import ListSavings from '../../components/ListSavings';
+import DebtsForm from '../../components/DebtsForm';
+import ListDebts from '../../components/ListDebts';
 import Page from '../../components/Page';
 import { styled } from '@material-ui/core/styles';
 import {
@@ -40,21 +40,21 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
     marginBottom: theme.spacing(3),
 }));
 
-const Savings = () => {
+const Debts = () => {
     const [loading, setLoading] = useState(true);
-    const [savings, setSavings] = useState();
+    const [debts, setDebts] = useState();
     const [action, setAction] = useState('');
     const [toEdit, setToEdit] = useState();
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        listSavings();
+        listDebts();
     }, []);
 
-    const listSavings = async () => {
-        await API.get(config.api.NAME, '/savings', null)
+    const listDebts = async () => {
+        await API.get(config.api.NAME, '/debts', null)
             .then((response) => {
-                setSavings(response);
+                setDebts(response);
                 setLoading(false);
             })
             .catch(() => {
@@ -62,9 +62,9 @@ const Savings = () => {
             });
     };
 
-    const handleEdit = (saving) => {
+    const handleEdit = (debt) => {
         setAction('update');
-        setToEdit(saving);
+        setToEdit(debt);
     };
 
     const Form = () => {
@@ -77,22 +77,20 @@ const Savings = () => {
                             startIcon={<ArrowBackIcon />}
                             onClick={() => setAction('')}
                         >
-                            Return to savings list
+                            Return to debts list
                         </StyledBackButton>
                     </Grid>
                     <Grid item sm={6} xs={12}>
                         <Typography variant="h4" gutterBottom>
-                            {action === 'add'
-                                ? 'Add a new saving'
-                                : 'Edit saving'}
+                            {action === 'add' ? 'Add a new debt' : 'Edit debt'}
                         </Typography>
                     </Grid>
                 </StyledHeaderGrid>
                 <StyledDivider />
                 {action === 'add' ? (
-                    <SavingsForm action="add" />
+                    <DebtsForm action="add" />
                 ) : (
-                    <SavingsForm action="update" saving={toEdit} />
+                    <DebtsForm action="update" debt={toEdit} />
                 )}
             </>
         );
@@ -114,19 +112,19 @@ const Savings = () => {
         <Page>
             {!action ? (
                 <>
-                    <ApplicationNavigation page="/savings" />
+                    <ApplicationNavigation page="/debts" />
                     <Typography variant="h4" gutterBottom>
-                        My savings
+                        My debts
                     </Typography>
                     <StyledDivider />
-                    <ListSavings savings={savings} handleEdit={handleEdit} />
+                    <ListDebts debts={debts} handleEdit={handleEdit} />
                     <StyledAddButton
                         color="secondary"
                         variant="contained"
                         size="large"
                         onClick={() => setAction('add')}
                     >
-                        Add a New Saving
+                        Add a New Debt
                     </StyledAddButton>
                 </>
             ) : (
@@ -136,4 +134,4 @@ const Savings = () => {
     );
 };
 
-export default Savings;
+export default Debts;

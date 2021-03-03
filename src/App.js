@@ -7,6 +7,7 @@ import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Dashboard from './pages/Dashboard';
 import Savings from './pages/Savings';
+import Debts from './pages/Debts';
 import { Oops } from './pages/Errors';
 import { AuthContext } from './util/auth';
 import useCurrentUser from './util/useCurrentUser';
@@ -34,6 +35,9 @@ const App = () => {
                     </PrivateRoute>
                     <PrivateRoute path="/savings">
                         <Savings />
+                    </PrivateRoute>
+                    <PrivateRoute path="/debts">
+                        <Debts />
                     </PrivateRoute>
                     <PrivateRoute path="/oops">
                         <Oops />
