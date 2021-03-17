@@ -36,19 +36,23 @@ const Dashboard = () => {
     const user = useAuth();
 
     useEffect(() => {
-        listSavings();
+        listItems();
     }, []);
 
-    const listSavings = async () => {
-        await API.get(config.api.NAME, '/savings', null)
-            .then((response) => {
-                const plotted = plot(response);
-                setPlottedData(plotted);
-                setLoading(false);
-            })
-            .catch(() => {
+    const listItems = async () => {
+        const savings = await API.get(config.api.NAME, '/savings', null).catch(
+            () => {
                 setError(true);
-            });
+            }
+        );
+
+        const debts = await API.get(config.api.NAME, '/debts', null).catch(
+            () => {
+                setError(true);
+            }
+        );
+        setPlottedData(plot(savings, debts));
+        setLoading(false);
     };
 
     const Content = () => {

@@ -1,4 +1,4 @@
-import plotSavings from './plotSavings';
+import plot from './index';
 
 describe('plot saving data', () => {
     const saving = {};
@@ -17,7 +17,7 @@ describe('plot saving data', () => {
     test('should return empty array when no savings', () => {
         const savings = [];
 
-        const result = plotSavings(savings);
+        const result = plot(savings, []);
 
         expect(result).toHaveLength(0);
     });
@@ -25,15 +25,15 @@ describe('plot saving data', () => {
     test('should have id of saving name', () => {
         const savings = [saving];
 
-        const result = plotSavings(savings);
+        const result = plot(savings, []);
 
-        expect(result[0].id).toBe(savings[0].name);
+        expect(result[0].id).toBe(`(S) ${savings[0].name}`);
     });
 
     test('should use startAmount and date', () => {
         const savings = [saving];
 
-        const result = plotSavings(savings);
+        const result = plot(savings, []);
 
         const item = result[0].data[0];
         expect(item).toEqual({ x: '2012-01', y: '50.00' });
@@ -46,7 +46,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '0.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const item = result[0].data[1];
             expect(item).toEqual({ x: '2012-02', y: '50.50' });
@@ -58,7 +58,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '0.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const item = result[0].data[1];
             expect(item).toEqual({ x: '2012-02', y: '49.50' });
@@ -70,7 +70,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '0.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -86,7 +86,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '50.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const item = result[0].data[1];
             expect(item).toEqual({ x: '2012-02', y: '100.00' });
@@ -98,7 +98,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '-25.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const item = result[0].data[1];
             expect(item).toEqual({ x: '2012-02', y: '25.00' });
@@ -110,7 +110,7 @@ describe('plot saving data', () => {
             saving.monthlyAmount = '10.00';
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -125,7 +125,7 @@ describe('plot saving data', () => {
             saving.oneTimePayments = [{ amount: '20.00', date: '2012-03' }];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -141,7 +141,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -158,7 +158,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -172,7 +172,7 @@ describe('plot saving data', () => {
             saving.oneTimePayments = [{ amount: '-20.00', date: '2012-03' }];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -189,7 +189,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -206,7 +206,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -222,7 +222,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -237,7 +237,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -252,7 +252,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -268,7 +268,7 @@ describe('plot saving data', () => {
             ];
             const savings = [saving];
 
-            const result = plotSavings(savings);
+            const result = plot(savings, []);
 
             const data = result[0].data;
             expect(data[0]).toEqual({ x: '2012-01', y: '50.00' });
@@ -289,16 +289,16 @@ describe('plot saving data', () => {
 
         const savings = [saving, saving2];
 
-        const result = plotSavings(savings);
+        const result = plot(savings, []);
 
         const result1 = result[0];
-        expect(result1.id).toEqual(savings[0].name);
+        expect(result1.id).toEqual(`(S) ${savings[0].name}`);
         expect(result1.data[0]).toEqual({ x: '2012-01', y: '50.00' });
         expect(result1.data[1]).toEqual({ x: '2012-02', y: '70.00' });
         expect(result1.data[2]).toEqual({ x: '2012-03', y: '90.00' });
 
         const result2 = result[1];
-        expect(result2.id).toEqual(savings[1].name);
+        expect(result2.id).toEqual(`(S) ${savings[1].name}`);
         expect(result2.data[0]).toEqual({ x: '2013-06', y: '100.00' });
         expect(result2.data[1]).toEqual({ x: '2013-07', y: '130.00' });
         expect(result2.data[2]).toEqual({ x: '2013-08', y: '160.00' });
