@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Faq from './pages/Faq';
 import Dashboard from './pages/Dashboard';
 import Savings from './pages/Savings';
 import Debts from './pages/Debts';
@@ -29,6 +30,9 @@ const App = () => {
                     </Route>
                     <Route path="/privacy-policy">
                         <PrivacyPolicy />
+                    </Route>
+                    <Route path="/faq/:id?">
+                        <Faq />
                     </Route>
                     <PrivateRoute path="/dashboard">
                         <Dashboard />
