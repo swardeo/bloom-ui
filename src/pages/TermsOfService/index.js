@@ -16,6 +16,7 @@ const StyledSubheading = styled(Typography)(({ theme }) => ({
 const StyledLink = styled(Link)(({ theme }) => ({
     color: theme.palette.secondary.main,
     fontWeight: theme.typography.fontWeightMedium,
+    textDecoration: 'none',
 }));
 
 const TermsOfService = () => {

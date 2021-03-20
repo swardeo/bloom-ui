@@ -1,4 +1,7 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import {
+    unstable_createMuiStrictModeTheme as createMuiTheme,
+    responsiveFontSizes,
+} from '@material-ui/core/styles';
 import './amplifyTheme.css';
 
 let theme = createMuiTheme({

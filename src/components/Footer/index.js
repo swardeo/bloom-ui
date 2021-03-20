@@ -65,7 +65,7 @@ const Footer = () => {
     const firstColumnLinks = [
         { title: 'Why Bloom?', path: '/why-bloom' },
         { title: 'About', path: '/about' },
-        { title: 'FAQ', path: '/faq' },
+        { title: 'FAQs', path: '/faq' },
     ];
 
     const secondColumnLinks = [
