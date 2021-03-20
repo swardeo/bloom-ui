@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Box } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import ApplicationHeader from '../ApplicationHeader';
-import Footer from '../Footer';
+import { ApplicationHeader, Footer } from '../';
 import PropTypes from 'prop-types';
 
 const StyledContainer = styled(Container)(({ theme }) => ({

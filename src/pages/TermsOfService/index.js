@@ -1,6 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { Header, Footer } from '../../components';
 import { Container, Divider, Link, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';

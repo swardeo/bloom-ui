@@ -1,6 +1,5 @@
 import React from 'react';
-import Page from '../../components/Page';
-import FaqComponent from '../../components/Faq';
+import { Faq as FaqComponent, Page } from '../../components';
 import { styled } from '@material-ui/core/styles';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Typography, Link } from '@material-ui/core';

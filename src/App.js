@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import TermsOfService from './pages/TermsOfService';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import Faq from './pages/Faq';
-import Dashboard from './pages/Dashboard';
-import Savings from './pages/Savings';
-import Debts from './pages/Debts';
-import { Oops } from './pages/Errors';
+import {
+    Dashboard,
+    Debts,
+    Oops,
+    Faq,
+    Home,
+    Login,
+    PrivacyPolicy,
+    Register,
+    Savings,
+    TermsOfService,
+} from './pages';
 import { AuthContext } from './util/auth';
 import useCurrentUser from './util/useCurrentUser';
 import PrivateRoute from './util/PrivateRoute';

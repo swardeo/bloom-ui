@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ApplicationNavigation from '../../components/ApplicationNavigation';
-import SavingsForm from '../../components/SavingsForm';
-import ListSavings from '../../components/ListSavings';
-import Page from '../../components/Page';
+import {
+    ApplicationNavigation,
+    Page,
+    SavingsForm,
+    ListSavings,
+} from '../../components';
 import { styled } from '@material-ui/core/styles';
 import {
     Button,
