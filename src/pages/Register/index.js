@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Authenticator from '../../components/Authenticator';
-import Page from '../../components/Page';
+import { Authenticator, Page } from '../../components';
 import { useAuth } from '../../util/auth';
 
 const Register = () => {

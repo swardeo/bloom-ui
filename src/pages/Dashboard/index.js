@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ApplicationNavigation from '../../components/ApplicationNavigation';
-import Graph from '../../components/Graph';
+import { ApplicationNavigation, Graph, Page } from '../../components';
 import plot from '../../data';
-import Page from '../../components/Page';
 import { API } from 'aws-amplify';
 import config from '../../config';
 import { styled } from '@material-ui/core/styles';

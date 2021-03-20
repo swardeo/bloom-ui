@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Page from '../../components/Page';
+import { Page } from '../../components';
 import { styled } from '@material-ui/core/styles';
 import { Button, Divider, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
