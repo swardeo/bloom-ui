@@ -1,10 +1,10 @@
 import React from 'react';
 import BloomHeader from './Header';
-import useCurrentUser from '../../util/useCurrentUser';
+import { useAuth } from '../../util/auth';
 
 const Header = () => {
-    const userStatus = useCurrentUser();
-    const isLoggedIn = null !== userStatus;
+    const user = useAuth();
+    const isLoggedIn = null !== user;
 
     return isLoggedIn ? <BloomHeader authenticated={true} /> : <BloomHeader />;
 };

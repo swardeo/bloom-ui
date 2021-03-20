@@ -10,7 +10,7 @@ const getCurrentUser = async () => {
 };
 
 const useCurrentUser = () => {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const updateUser = async () => {
