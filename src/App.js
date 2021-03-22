@@ -11,6 +11,7 @@ import {
     Register,
     Savings,
     TermsOfService,
+    NotFound,
 } from './pages';
 import { AuthContext } from './util/auth';
 import useCurrentUser from './util/useCurrentUser';
@@ -48,8 +49,11 @@ const App = () => {
                     <PrivateRoute path="/oops">
                         <Oops />
                     </PrivateRoute>
-                    <Route path="/">
+                    <Route exact path="/">
                         <Home />
+                    </Route>
+                    <Route path="*">
+                        <NotFound />
                     </Route>
                 </Switch>
             </BrowserRouter>

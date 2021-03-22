@@ -1,3 +1,4 @@
 import Oops from './Oops';
+import NotFound from './NotFound';
 
-export { Oops };
+export { Oops, NotFound };
