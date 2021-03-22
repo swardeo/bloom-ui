@@ -1,9 +1,11 @@
 import React from 'react';
-import { Oops } from './index';
+import { Oops, NotFound } from './index';
 
 export default {
     title: 'Pages/Errors',
-    component: { Oops },
+    component: { Oops, NotFound },
 };
 
 export const OopsPage = () => <Oops />;
+
+export const NotFoundPage = () => <NotFound />;

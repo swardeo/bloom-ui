@@ -1,6 +1,6 @@
 import Dashboard from './Dashboard';
 import Debts from './Debts';
-import { Oops } from './Errors';
+import { Oops, NotFound } from './Errors';
 import Faq from './Faq';
 import Home from './Home';
 import Login from './Login';
@@ -20,4 +20,5 @@ export {
     Register,
     Savings,
     TermsOfService,
+    NotFound,
 };
