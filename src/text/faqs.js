@@ -118,7 +118,7 @@ const faqs = [
     },
     {
         id: 'adjustments-explained',
-        title: 'What are Adjustments in Bloom?',
+        title: 'What is an Adjustment in Bloom?',
         content: (
             <div>
                 <Typography paragraph>
@@ -135,7 +135,7 @@ const faqs = [
     },
     {
         id: 'one-time-payments-explained',
-        title: 'What are One Time Payments in Bloom?',
+        title: 'What is a One Time Payment in Bloom?',
         content: (
             <div>
                 <Typography paragraph>
@@ -204,7 +204,7 @@ const faqs = [
     },
     {
         id: 'increase-debt-value',
-        title: 'Can I withdraw money from a saving?',
+        title: 'Can I increase the value of a debt?',
         content: (
             <div>
                 <Typography paragraph>
