@@ -62,7 +62,7 @@ const renderLinks = (links) => {
 
 const Footer = () => {
     const firstColumnLinks = [
-        { title: 'Why Bloom?', path: '/why-bloom' },
+        { title: 'Examples', path: '/examples' },
         { title: 'About', path: '/about' },
         { title: 'FAQs', path: '/faq' },
     ];

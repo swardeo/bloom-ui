@@ -1,6 +1,7 @@
 import About from './About';
 import Dashboard from './Dashboard';
 import Debts from './Debts';
+import Examples from './Examples';
 import { Oops, NotFound } from './Errors';
 import Faq from './Faq';
 import Home from './Home';
@@ -14,6 +15,7 @@ export {
     About,
     Dashboard,
     Debts,
+    Examples,
     Oops,
     Faq,
     Home,
