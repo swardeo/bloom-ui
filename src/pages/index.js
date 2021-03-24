@@ -1,3 +1,4 @@
+import About from './About';
 import Dashboard from './Dashboard';
 import Debts from './Debts';
 import { Oops, NotFound } from './Errors';
@@ -10,6 +11,7 @@ import Savings from './Savings';
 import TermsOfService from './TermsOfService';
 
 export {
+    About,
     Dashboard,
     Debts,
     Oops,

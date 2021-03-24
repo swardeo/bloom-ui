@@ -19,7 +19,6 @@ const StyledFooter = styled('footer')(({ theme }) => ({
     textAlign: 'center',
     clear: 'both',
     background: theme.palette.primary.main,
-    marginTop: theme.spacing(5),
 }));
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
