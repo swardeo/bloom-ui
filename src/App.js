@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
+    About,
     Dashboard,
     Debts,
     Oops,
@@ -22,6 +23,9 @@ const App = () => {
         <AuthContext.Provider value={useCurrentUser()}>
             <BrowserRouter>
                 <Switch>
+                    <Route path="/about">
+                        <About />
+                    </Route>
                     <Route path="/register">
                         <Register />
                     </Route>
