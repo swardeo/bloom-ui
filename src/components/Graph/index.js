@@ -76,6 +76,7 @@ const Graph = ({ data }) => {
                     format: '%b %Y',
                     legend: 'Time',
                     legendOffset: -12,
+                    tickValues: 5,
                 }}
                 enableSlices="x"
                 sliceTooltip={({ slice }) => <Tooltip slice={slice} />}

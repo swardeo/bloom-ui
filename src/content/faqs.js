@@ -38,7 +38,7 @@ const faqs = [
                     </StyledLink>
                     ). This will continue monthly until the End Date is reached.
                 </Typography>
-                <Typography>
+                <Typography paragraph>
                     It is possible to make{' '}
                     <StyledLink
                         key="adjustments explanation"
@@ -56,6 +56,18 @@ const faqs = [
                         target="_blank"
                     >
                         one-off payments
+                    </StyledLink>
+                    .
+                </Typography>
+                <Typography>
+                    For a demonstration of savings in Bloom,{' '}
+                    <StyledLink
+                        key="savings example"
+                        component={RouterLink}
+                        to={'/examples'}
+                        target="_blank"
+                    >
+                        see the provided examples
                     </StyledLink>
                     .
                 </Typography>
@@ -92,7 +104,7 @@ const faqs = [
                     ). This will continue monthly until the value reaches £0.00
                     or December 2050 is reached.
                 </Typography>
-                <Typography>
+                <Typography paragraph>
                     It is possible to make{' '}
                     <StyledLink
                         key="adjustments explanation"
@@ -110,6 +122,18 @@ const faqs = [
                         target="_blank"
                     >
                         one-off payments
+                    </StyledLink>
+                    .
+                </Typography>
+                <Typography>
+                    For a demonstration of debts in Bloom,{' '}
+                    <StyledLink
+                        key="debts example"
+                        component={RouterLink}
+                        to={'/examples'}
+                        target="_blank"
+                    >
+                        see the provided examples
                     </StyledLink>
                     .
                 </Typography>

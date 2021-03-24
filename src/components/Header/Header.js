@@ -103,7 +103,10 @@ async function signOut() {
 }
 
 const Header = ({ authenticated }) => {
-    const menuLinks = [{ title: 'about', path: '/about', type: 'regular' }];
+    const menuLinks = [
+        { title: 'examples', path: '/examples', type: 'regular' },
+        { title: 'about', path: '/about', type: 'regular' },
+    ];
 
     const profileLinks = authenticated
         ? [{ title: 'my dashboard', path: '/dashboard', type: 'regular' }]

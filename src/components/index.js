@@ -2,6 +2,7 @@ import ApplicationHeader from './ApplicationHeader';
 import ApplicationNavigation from './ApplicationNavigation';
 import Authenticator from './Authenticator';
 import DebtsForm from './DebtsForm';
+import Example from './Example';
 import Faq from './Faq';
 import Footer from './Footer';
 import Graph from './Graph';
@@ -16,6 +17,7 @@ export {
     ApplicationNavigation,
     Authenticator,
     DebtsForm,
+    Example,
     Faq,
     Footer,
     Graph,

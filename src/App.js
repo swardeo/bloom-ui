@@ -4,6 +4,7 @@ import {
     About,
     Dashboard,
     Debts,
+    Examples,
     Oops,
     Faq,
     Home,
@@ -25,6 +26,9 @@ const App = () => {
                 <Switch>
                     <Route path="/about">
                         <About />
+                    </Route>
+                    <Route path="/examples">
+                        <Examples />
                     </Route>
                     <Route path="/register">
                         <Register />

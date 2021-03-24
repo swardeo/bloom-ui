@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Accordion, AccordionDetails, Typography } from '@material-ui/core';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { ExpandMore } from '@material-ui/icons';
-import faqs from '../../text/faqs';
+import faqs from '../../content/faqs';
 
 const StyledSummary = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.h6.fontSize,
