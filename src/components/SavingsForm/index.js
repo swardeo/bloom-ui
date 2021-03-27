@@ -3,23 +3,30 @@ import PropTypes from 'prop-types';
 import {
     Button,
     Divider,
-    FormControl,
     Grid,
     Hidden,
     IconButton,
-    InputAdornment,
-    TextField,
     Typography,
     CircularProgress,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { styled } from '@material-ui/core/styles';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import { API } from 'aws-amplify';
 import config from '../../config';
 import { useHistory, Redirect } from 'react-router-dom';
 import validateSaving from '../../util/validateSaving';
+import {
+    NameField,
+    StartAmountField,
+    MonthlyAmountField,
+    StartDateField,
+    EndDateField,
+    YearlyRateField,
+    AdjustmentFields,
+    OneTimePaymentFields,
+} from '../FormFields';
 
 const StyledRemoveButton = styled(IconButton)(({ theme }) => ({
     color: theme.palette.error.main,
@@ -167,217 +174,80 @@ const SavingsForm = ({ action, saving }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
                 <Grid item sm={4} xs={12}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="name"
-                            as={
-                                <TextField
-                                    id="name"
-                                    helperText={
-                                        fieldsErrors.name
-                                            ? fieldsErrors.name.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="Name *"
-                                    error={!!fieldsErrors.name}
-                                    disabled={action === 'update'}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.name}
-                            rules={{
-                                required: 'Required',
-                            }}
-                        />
-                    </FormControl>
+                    <NameField
+                        helperText={
+                            fieldsErrors.name ? fieldsErrors.name.message : null
+                        }
+                        error={!!fieldsErrors.name}
+                        disabled={action === 'update'}
+                        control={control}
+                        defaultValue={defaultValues.name}
+                    />
                 </Grid>
                 <Grid item sm={4} xs={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="startAmount"
-                            as={
-                                <TextField
-                                    id="startAmount"
-                                    helperText={
-                                        fieldsErrors.startAmount
-                                            ? fieldsErrors.startAmount.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="Start Amount *"
-                                    error={!!fieldsErrors.startAmount}
-                                    placeholder="0.00"
-                                    type="number"
-                                    InputProps={{
-                                        inputProps: { step: 0.01 },
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                £
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    disabled={!active}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.startAmount}
-                            rules={{
-                                required: 'Required',
-                                pattern: {
-                                    value: /^[0-9]+\.[0-9][0-9]$/i,
-                                    message:
-                                        'Please enter a non-negative decimal to 2 places (x.xx)',
-                                },
-                            }}
-                        />
-                    </FormControl>
+                    <StartAmountField
+                        helperText={
+                            fieldsErrors.startAmount
+                                ? fieldsErrors.startAmount.message
+                                : null
+                        }
+                        error={!!fieldsErrors.startAmount}
+                        disabled={!active}
+                        control={control}
+                        defaultValue={defaultValues.startAmount}
+                    />
                 </Grid>
                 <Grid item sm={4} xs={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="monthlyAmount"
-                            as={
-                                <TextField
-                                    id="monthlyAmount"
-                                    helperText={
-                                        fieldsErrors.monthlyAmount
-                                            ? fieldsErrors.monthlyAmount.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="Monthly Amount *"
-                                    error={!!fieldsErrors.monthlyAmount}
-                                    placeholder="0.00"
-                                    type="number"
-                                    InputProps={{
-                                        inputProps: { step: 0.01 },
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                £
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    disabled={!active}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.monthlyAmount}
-                            rules={{
-                                required: 'Required',
-                                pattern: {
-                                    value: /^[-]?[0-9]+\.[0-9][0-9]$/i,
-                                    message:
-                                        'Please enter a decimal to 2 places (x.xx)',
-                                },
-                            }}
-                        />
-                    </FormControl>
+                    <MonthlyAmountField
+                        helperText={
+                            fieldsErrors.monthlyAmount
+                                ? fieldsErrors.monthlyAmount.message
+                                : null
+                        }
+                        error={!!fieldsErrors.monthlyAmount}
+                        disabled={!active}
+                        control={control}
+                        defaultValue={defaultValues.monthlyAmount}
+                    />
                 </Grid>
                 <Grid item sm={4} xs={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="startDate"
-                            as={
-                                <TextField
-                                    id="startDate"
-                                    helperText={
-                                        fieldsErrors.startDate
-                                            ? fieldsErrors.startDate.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="Start Date *"
-                                    error={!!fieldsErrors.startDate}
-                                    placeholder="yyyy-MM"
-                                    disabled={!active}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.startDate}
-                            rules={{
-                                required: 'Required',
-                                pattern: {
-                                    value: /^[0-9]{4}-[0-9]{2}$/i,
-                                    message:
-                                        'Please enter a date in the form yyyy-MM',
-                                },
-                            }}
-                        />
-                    </FormControl>
+                    <StartDateField
+                        helperText={
+                            fieldsErrors.startDate
+                                ? fieldsErrors.startDate.message
+                                : null
+                        }
+                        error={!!fieldsErrors.startDate}
+                        disabled={!active}
+                        control={control}
+                        defaultValue={defaultValues.startDate}
+                    />
                 </Grid>
                 <Grid item sm={4} xs={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="endDate"
-                            as={
-                                <TextField
-                                    id="endDate"
-                                    helperText={
-                                        fieldsErrors.endDate
-                                            ? fieldsErrors.endDate.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="End Date *"
-                                    error={!!fieldsErrors.endDate}
-                                    placeholder="yyyy-MM"
-                                    disabled={!active}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.endDate}
-                            rules={{
-                                required: 'Required',
-                                pattern: {
-                                    value: /^[0-9]{4}-[0-9]{2}$/i,
-                                    message:
-                                        'Please enter a date in the form yyyy-MM',
-                                },
-                            }}
-                        />
-                    </FormControl>
+                    <EndDateField
+                        helperText={
+                            fieldsErrors.endDate
+                                ? fieldsErrors.endDate.message
+                                : null
+                        }
+                        error={!!fieldsErrors.endDate}
+                        disabled={!active}
+                        control={control}
+                        defaultValue={defaultValues.endDate}
+                    />
                 </Grid>
                 <Grid item sm={4} xs={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Controller
-                            name="yearlyRate"
-                            as={
-                                <TextField
-                                    id="yearlyRate"
-                                    helperText={
-                                        fieldsErrors.yearlyRate
-                                            ? fieldsErrors.yearlyRate.message
-                                            : null
-                                    }
-                                    variant="outlined"
-                                    label="Yearly Rate *"
-                                    error={!!fieldsErrors.yearlyRate}
-                                    placeholder="0.00"
-                                    type="number"
-                                    InputProps={{
-                                        inputProps: { step: 0.01 },
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                %
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    disabled={!active}
-                                />
-                            }
-                            control={control}
-                            defaultValue={defaultValues.yearlyRate}
-                            rules={{
-                                required: 'Required',
-                                pattern: {
-                                    value: /^[-]?[0-9]+\.[0-9][0-9]$/i,
-                                    message:
-                                        'Please enter a decimal to 2 places (x.xx)',
-                                },
-                            }}
-                        />
-                    </FormControl>
+                    <YearlyRateField
+                        helperText={
+                            fieldsErrors.yearlyRate
+                                ? fieldsErrors.yearlyRate.message
+                                : null
+                        }
+                        error={!!fieldsErrors.yearlyRate}
+                        disabled={!active}
+                        control={control}
+                        defaultValue={defaultValues.yearlyRate}
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="h5">Adjustments:</Typography>
@@ -396,158 +266,46 @@ const SavingsForm = ({ action, saving }) => {
                                 justify="space-evenly"
                                 alignContent="center"
                             >
-                                <Grid item sm={3} xs={6}>
-                                    <FormControl fullWidth variant="outlined">
-                                        <Controller
-                                            name={`${fieldName}.amount`}
-                                            as={
-                                                <TextField
-                                                    id={`${fieldName}.amount`}
-                                                    helperText={
-                                                        fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.amount
-                                                            ? fieldsErrors
-                                                                  .adjustments?.[
-                                                                  index
-                                                              ]?.amount?.message
-                                                            : null
-                                                    }
-                                                    variant="outlined"
-                                                    label="Monthly Amount *"
-                                                    error={
-                                                        !!fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.amount
-                                                    }
-                                                    placeholder="0.00"
-                                                    type="number"
-                                                    InputProps={{
-                                                        inputProps: {
-                                                            step: 0.01,
-                                                        },
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                £
-                                                            </InputAdornment>
-                                                        ),
-                                                    }}
-                                                    disabled={!active}
-                                                />
-                                            }
-                                            control={control}
-                                            defaultValue={values.amount}
-                                            rules={{
-                                                required: 'Required',
-                                                pattern: {
-                                                    value: /^[-]?[0-9]+\.[0-9][0-9]$/i,
-                                                    message:
-                                                        'Please enter a decimal to 2 places (x.xx)',
-                                                },
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item sm={3} xs={6}>
-                                    <FormControl fullWidth variant="outlined">
-                                        <Controller
-                                            name={`${fieldName}.dateFrom`}
-                                            as={
-                                                <TextField
-                                                    id={`${fieldName}.dateFrom`}
-                                                    helperText={
-                                                        fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.dateFrom
-                                                            ? fieldsErrors
-                                                                  .adjustments?.[
-                                                                  index
-                                                              ]?.dateFrom
-                                                                  ?.message
-                                                            : null
-                                                    }
-                                                    variant="outlined"
-                                                    label="Date From *"
-                                                    error={
-                                                        !!fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.dateFrom
-                                                    }
-                                                    placeholder="yyyy-MM"
-                                                    disabled={!active}
-                                                />
-                                            }
-                                            control={control}
-                                            defaultValue={values.dateFrom}
-                                            rules={{
-                                                required: 'Required',
-                                                pattern: {
-                                                    value: /^[0-9]{4}-[0-9]{2}$/i,
-                                                    message:
-                                                        'Please enter a date in the form yyyy-MM',
-                                                },
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item sm={3} xs={6}>
-                                    <FormControl fullWidth variant="outlined">
-                                        <Controller
-                                            name={`${fieldName}.rate`}
-                                            as={
-                                                <TextField
-                                                    id={`${fieldName}.rate`}
-                                                    helperText={
-                                                        fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.rate
-                                                            ? fieldsErrors
-                                                                  .adjustments?.[
-                                                                  index
-                                                              ]?.rate?.message
-                                                            : null
-                                                    }
-                                                    variant="outlined"
-                                                    label="Yearly Rate *"
-                                                    error={
-                                                        !!fieldsErrors
-                                                            .adjustments?.[
-                                                            index
-                                                        ]?.rate
-                                                    }
-                                                    placeholder="0.00"
-                                                    type="number"
-                                                    InputProps={{
-                                                        inputProps: {
-                                                            step: 0.01,
-                                                        },
-                                                        endAdornment: (
-                                                            <InputAdornment position="end">
-                                                                %
-                                                            </InputAdornment>
-                                                        ),
-                                                    }}
-                                                    disabled={!active}
-                                                />
-                                            }
-                                            control={control}
-                                            defaultValue={values.rate}
-                                            rules={{
-                                                required: 'Required',
-                                                pattern: {
-                                                    value: /^[-]?[0-9]+\.[0-9][0-9]$/i,
-                                                    message:
-                                                        'Please enter a decimal to 2 places (x.xx)',
-                                                },
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
+                                <AdjustmentFields
+                                    fieldName={fieldName}
+                                    amountHelperText={
+                                        fieldsErrors.adjustments?.[index]
+                                            ?.amount
+                                            ? fieldsErrors.adjustments?.[index]
+                                                  ?.amount?.message
+                                            : null
+                                    }
+                                    amountError={
+                                        !!fieldsErrors.adjustments?.[index]
+                                            ?.amount
+                                    }
+                                    amountDefaultValue={values.amount}
+                                    dateFromHelperText={
+                                        fieldsErrors.adjustments?.[index]
+                                            ?.dateFrom
+                                            ? fieldsErrors.adjustments?.[index]
+                                                  ?.dateFrom?.message
+                                            : null
+                                    }
+                                    dateFromError={
+                                        !!fieldsErrors.adjustments?.[index]
+                                            ?.dateFrom
+                                    }
+                                    dateFromDefaultValue={values.dateFrom}
+                                    rateHelperText={
+                                        fieldsErrors.adjustments?.[index]?.rate
+                                            ? fieldsErrors.adjustments?.[index]
+                                                  ?.rate?.message
+                                            : null
+                                    }
+                                    rateError={
+                                        !!fieldsErrors.adjustments?.[index]
+                                            ?.rate
+                                    }
+                                    rateDefaultValue={values.rate}
+                                    disabled={!active}
+                                    control={control}
+                                />
                                 <Grid item sm={1} xs={1}>
                                     {active && (
                                         <StyledRemoveButton
@@ -595,103 +353,37 @@ const SavingsForm = ({ action, saving }) => {
                                 justify="space-evenly"
                                 alignContent="center"
                             >
-                                <Grid item sm={3} xs={5}>
-                                    <FormControl fullWidth variant="outlined">
-                                        <Controller
-                                            name={`${fieldName}.amount`}
-                                            as={
-                                                <TextField
-                                                    id={`${fieldName}.amount`}
-                                                    helperText={
-                                                        fieldsErrors
-                                                            .oneTimePayments?.[
-                                                            index
-                                                        ]?.amount
-                                                            ? fieldsErrors
-                                                                  .oneTimePayments?.[
-                                                                  index
-                                                              ]?.amount?.message
-                                                            : null
-                                                    }
-                                                    variant="outlined"
-                                                    label="One Time Amount *"
-                                                    error={
-                                                        !!fieldsErrors
-                                                            .oneTimePayments?.[
-                                                            index
-                                                        ]?.amount
-                                                    }
-                                                    placeholder="0.00"
-                                                    type="number"
-                                                    InputProps={{
-                                                        inputProps: {
-                                                            step: 0.01,
-                                                        },
-                                                        startAdornment: (
-                                                            <InputAdornment position="start">
-                                                                £
-                                                            </InputAdornment>
-                                                        ),
-                                                    }}
-                                                    disabled={!active}
-                                                />
-                                            }
-                                            control={control}
-                                            defaultValue={values.amount}
-                                            rules={{
-                                                required: 'Required',
-                                                pattern: {
-                                                    value: /^[-]?[0-9]+\.[0-9][0-9]$/i,
-                                                    message:
-                                                        'Please enter a decimal to 2 places (x.xx)',
-                                                },
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item sm={3} xs={5}>
-                                    <FormControl fullWidth variant="outlined">
-                                        <Controller
-                                            name={`${fieldName}.date`}
-                                            as={
-                                                <TextField
-                                                    id={`${fieldName}.date`}
-                                                    helperText={
-                                                        fieldsErrors
-                                                            .oneTimePayments?.[
-                                                            index
-                                                        ]?.date
-                                                            ? fieldsErrors
-                                                                  .oneTimePayments?.[
-                                                                  index
-                                                              ]?.date?.message
-                                                            : null
-                                                    }
-                                                    variant="outlined"
-                                                    label="Date *"
-                                                    error={
-                                                        !!fieldsErrors
-                                                            .oneTimePayments?.[
-                                                            index
-                                                        ]?.date
-                                                    }
-                                                    placeholder="yyyy-MM"
-                                                    disabled={!active}
-                                                />
-                                            }
-                                            control={control}
-                                            defaultValue={values.date}
-                                            rules={{
-                                                required: 'Required',
-                                                pattern: {
-                                                    value: /^[0-9]{4}-[0-9]{2}$/i,
-                                                    message:
-                                                        'Please enter a date in the form yyyy-MM',
-                                                },
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
+                                <OneTimePaymentFields
+                                    fieldName={fieldName}
+                                    amountHelperText={
+                                        fieldsErrors.oneTimePayments?.[index]
+                                            ?.amount
+                                            ? fieldsErrors.oneTimePayments?.[
+                                                  index
+                                              ]?.amount?.message
+                                            : null
+                                    }
+                                    amountError={
+                                        !!fieldsErrors.oneTimePayments?.[index]
+                                            ?.amount
+                                    }
+                                    amountDefaultValue={values.amount}
+                                    dateHelperText={
+                                        fieldsErrors.oneTimePayments?.[index]
+                                            ?.date
+                                            ? fieldsErrors.oneTimePayments?.[
+                                                  index
+                                              ]?.date?.message
+                                            : null
+                                    }
+                                    dateError={
+                                        !!fieldsErrors.oneTimePayments?.[index]
+                                            ?.date
+                                    }
+                                    dateDefaultValue={values.date}
+                                    disabled={!active}
+                                    control={control}
+                                />
                                 <Grid item sm={1} xs={1}>
                                     {active && (
                                         <StyledRemoveButton
