@@ -2,8 +2,8 @@ const isEmpty = (str) => {
     return str.length === 0 || !str.trim();
 };
 
-const isNotGreaterThanZero = (str) => {
-    return 0 >= parseFloat(str);
+const isNegative = (str) => {
+    return 0 > parseFloat(str);
 };
 
 const isInvalidDate = (str) => {
@@ -58,8 +58,8 @@ const validateSaving = (saving) => {
     if (isEmpty(saving.name)) {
         return 'Saving name should not be blank.';
     }
-    if (isNotGreaterThanZero(saving.startAmount)) {
-        return 'Saving start amount should be greater than £0.00.';
+    if (isNegative(saving.startAmount)) {
+        return 'Saving start amount should not be negative.';
     }
     if (isInvalidDate(saving.startDate) || isInvalidDate(saving.endDate)) {
         return 'Date months should be between 01 and 12. Date years should be between 1970 and 2050.';

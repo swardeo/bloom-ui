@@ -26,12 +26,16 @@ describe('validate saving', () => {
         expect(result).toBe('Saving name should not be blank.');
     });
 
-    test('should return error message when start amount is 0', () => {
+    test('should return error message when start amount is below 0', () => {
+        saving.startAmount = '-0.01';
+        const result = validateSaving(saving);
+        expect(result).toBe('Saving start amount should not be negative.');
+    });
+
+    test('should return success when start amount is 0', () => {
         saving.startAmount = '0.00';
         const result = validateSaving(saving);
-        expect(result).toBe(
-            'Saving start amount should be greater than £0.00.'
-        );
+        expect(result).toBe('success');
     });
 
     test('should return error message when start date after end date', () => {
