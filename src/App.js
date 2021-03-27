@@ -18,11 +18,13 @@ import {
 import { AuthContext } from './util/auth';
 import useCurrentUser from './util/useCurrentUser';
 import PrivateRoute from './util/PrivateRoute';
+import ScrollToTop from './util/ScrollToTop';
 
 const App = () => {
     return (
         <AuthContext.Provider value={useCurrentUser()}>
             <BrowserRouter>
+                <ScrollToTop />
                 <Switch>
                     <Route path="/about">
                         <About />
