@@ -2,6 +2,7 @@ import {
     isEmpty,
     isInvalidDate,
     isGreaterThanZero,
+    isNegative,
     validateAdjustments,
     validateOneTimePayments,
 } from './validationUtils';
@@ -76,6 +77,30 @@ describe('validation utils', () => {
         `('should return false when not greater than zero', ({ value }) => {
             const result = isGreaterThanZero(value);
             expect(result).toBe(false);
+        });
+    });
+
+    describe('isNegative', () => {
+        test.each`
+            value
+            ${'0.00'}
+            ${'0.01'}
+            ${'1.00'}
+            ${'1521.26'}
+        `('should return false when greater than zero', ({ value }) => {
+            const result = isNegative(value);
+            expect(result).toBe(false);
+        });
+
+        test.each`
+            value
+            ${'-0.01'}
+            ${'-0.02'}
+            ${'-1.00'}
+            ${'-1521.26'}
+        `('should return true when negative', ({ value }) => {
+            const result = isNegative(value);
+            expect(result).toBe(true);
         });
     });
 

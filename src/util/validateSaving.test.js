@@ -38,11 +38,19 @@ describe('validate saving', () => {
         expect(result).toBe('success');
     });
 
-    test('should return error message when start date after end date', () => {
-        saving.endDate = '2012-10';
-        const result = validateSaving(saving);
-        expect(result).toBe('Saving start date should be before end date.');
-    });
+    test.each`
+        endDate
+        ${'2010-05'}
+        ${'2012-10'}
+        ${'2012-11'}
+    `(
+        'should return error message when start date not before end date',
+        ({ endDate }) => {
+            saving.endDate = endDate;
+            const result = validateSaving(saving);
+            expect(result).toBe('Saving start date should be before end date.');
+        }
+    );
 
     test.each`
         date

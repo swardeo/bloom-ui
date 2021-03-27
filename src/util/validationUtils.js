@@ -6,6 +6,10 @@ const isGreaterThanZero = (str) => {
     return 0 < parseFloat(str);
 };
 
+const isNegative = (str) => {
+    return 0 > parseFloat(str);
+};
+
 const isInvalidDate = (str) => {
     const year = parseInt(str.split('-')[0]);
     const month = parseInt(str.split('-')[1]);
@@ -64,6 +68,7 @@ export {
     isEmpty,
     isInvalidDate,
     isGreaterThanZero,
+    isNegative,
     validateAdjustments,
     validateOneTimePayments,
 };
