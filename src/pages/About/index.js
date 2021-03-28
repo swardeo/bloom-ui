@@ -176,7 +176,7 @@ const About = () => {
                             – React (using Material UI, AWS Amplify), AWS (S3,
                             CloudFront).
                         </Typography>
-                        <Typography>
+                        <Typography gutterBottom>
                             AWS resources modelled using AWS CloudFormation.
                             CI/CD performed using GitHub Actions.
                         </Typography>
