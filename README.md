@@ -6,7 +6,9 @@
 
 ## What is Bloom?
 
-Bloom is my final year project at Aston University, which aims to help individuals explore a forecast of their financial situation.
+Bloom is my final year project at Aston University, which aims to help individuals explore a forecast of their financial situation. [Take a look here!](https://bloom.money/)
+
+This project contains the frontend of the application. The backend can be viewed [here](https://github.com/swardeo/bloom-services).
 
 ## Available Scripts
 
@@ -49,3 +51,15 @@ The production environment can be viewed at either [bloom.money](https://bloom.m
 The application is deployed to Amazon Web Services.
 
 The infrastructure is modelled using AWS CloudFormation templates, which can be viewed [here](.cloudformation/stack.yaml).
+
+## Scope
+
+As this forms part of a time-constrained academic project, the scope has been limited, some details have been knowingly overlooked, and some things would have been done differently if time had allowed for it.
+
+## Notes about the project
+
+This is the first time that I have used React other than to build a few components and it is also the first time I have attempted to build a frontend of this scale. So, I am well aware that there are plenty of improvements which could be made. For example:
+
+-   The state management of the application could be vastly improved. Currently, local state doesn't extend beyond each page.
+-   With using the Material UI component library, components have just been imported and used where needed. Some of these still require styling to become appropriate for this application, which has led to duplication.
+    -   A better alternative would have been to create a component where the Material UI component is imported, where it could be styled and then re-exported to be used throughout the application. This would then make it easier keep styling consistent and reduce duplication.
