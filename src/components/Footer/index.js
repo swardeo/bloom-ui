@@ -20,6 +20,7 @@ const StyledFooter = styled('footer')(({ theme }) => ({
     clear: 'both',
     background: theme.palette.primary.main,
     boxShadow: `0 50vh 0 50vh ${theme.palette.primary.main}`,
+    marginTop: theme.spacing(4),
 }));
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({

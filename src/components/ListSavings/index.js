@@ -19,6 +19,7 @@ import {
     DialogContent,
     CircularProgress,
     Grid,
+    Link,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import BackspaceIcon from '@material-ui/icons/Backspace';
@@ -26,7 +27,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { API } from 'aws-amplify';
 import config from '../../config';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, Link as RouterLink } from 'react-router-dom';
+
+const StyledLink = styled(Link)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    fontWeight: 'bold',
+    textDecoration: 'none',
+}));
 
 const StyledBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
@@ -48,10 +55,32 @@ const StyledCloseButton = styled(IconButton)(({ theme }) => ({
 const NoSavings = () => {
     return (
         <>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h5" paragraph>
                 You have not yet added any savings.
             </Typography>
-            <Typography>To get started please add a new saving.</Typography>
+            <Typography variant="h6" paragraph>
+                To get started please click add a new saving.
+            </Typography>
+            <Typography>
+                For more information{' '}
+                <StyledLink
+                    key="examples"
+                    component={RouterLink}
+                    to={'/examples'}
+                    target="_blank"
+                >
+                    take a look at some examples using savings
+                </StyledLink>{' '}
+                , or{' '}
+                <StyledLink
+                    key="savings in bloom faq"
+                    component={RouterLink}
+                    to={'/faq/savings-in-bloom'}
+                    target="_blank"
+                >
+                    view the FAQ which explains savings in Bloom.
+                </StyledLink>
+            </Typography>
         </>
     );
 };

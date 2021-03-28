@@ -10,17 +10,24 @@ import {
     Container,
     Divider,
     Typography,
+    Link,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../../util/auth';
+
+const StyledLink = styled(Link)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    fontWeight: 'bold',
+    textDecoration: 'none',
+}));
 
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
     marginTop: theme.spacing(5),
 }));
 
 const StyledDivider = styled(Divider)(({ theme }) => ({
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
 }));
 
 const StyledText = styled(Typography)(({ theme }) => ({
@@ -56,10 +63,6 @@ const Dashboard = () => {
     const Content = () => {
         return plottedData.length > 0 ? (
             <>
-                <Typography variant="h4" gutterBottom>
-                    My Dashboard
-                </Typography>
-                <StyledDivider />
                 <StyledText>
                     {user.attributes.given_name}, here is your financial
                     forecast
@@ -74,11 +77,35 @@ const Dashboard = () => {
             </>
         ) : (
             <>
-                <Typography variant="h6" gutterBottom>
-                    You have not yet added any savings or debts.
+                <Typography variant="h5" paragraph>
+                    Welcome to Bloom!
+                </Typography>
+                <Typography variant="h6" paragraph>
+                    You have not yet added any savings or debts. Check back here
+                    once you have to see how they look.
+                </Typography>
+                <Typography paragraph>
+                    For more information about what is possible in Bloom,{' '}
+                    <StyledLink
+                        key="examples"
+                        component={RouterLink}
+                        to={'/examples'}
+                        target="_blank"
+                    >
+                        take a look at some examples.
+                    </StyledLink>
                 </Typography>
                 <Typography>
-                    To get started please add new savings or debts.
+                    Have any questions?{' '}
+                    <StyledLink
+                        key="frequently asked questions"
+                        component={RouterLink}
+                        to={'/faq'}
+                        target="_blank"
+                    >
+                        See if they can be answered using the Frequently Asked
+                        Questions.
+                    </StyledLink>
                 </Typography>
             </>
         );
@@ -99,6 +126,10 @@ const Dashboard = () => {
     return (
         <Page maxWidth={plottedData.length > 0 ? 'lg' : 'md'}>
             <ApplicationNavigation />
+            <Typography variant="h4" gutterBottom>
+                My Dashboard
+            </Typography>
+            <StyledDivider />
             <Content />
         </Page>
     );

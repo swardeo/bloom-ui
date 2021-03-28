@@ -118,7 +118,7 @@ const Savings = () => {
                 <>
                     <ApplicationNavigation page="/savings" />
                     <Typography variant="h4" gutterBottom>
-                        My savings
+                        My Savings
                     </Typography>
                     <StyledDivider />
                     <ListSavings savings={savings} handleEdit={handleEdit} />

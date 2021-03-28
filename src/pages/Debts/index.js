@@ -116,7 +116,7 @@ const Debts = () => {
                 <>
                     <ApplicationNavigation page="/debts" />
                     <Typography variant="h4" gutterBottom>
-                        My debts
+                        My Debts
                     </Typography>
                     <StyledDivider />
                     <ListDebts debts={debts} handleEdit={handleEdit} />
