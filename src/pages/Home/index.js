@@ -151,7 +151,7 @@ const Home = () => {
                     Still unsure?
                 </BoldText>
                 <Typography variant="h5" align="center" paragraph>
-                    View examples of what can be achieved when using bloom
+                    View examples of what can be achieved when using Bloom
                 </Typography>
                 <Button
                     variant="contained"
