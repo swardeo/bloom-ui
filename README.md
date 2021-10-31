@@ -6,9 +6,15 @@
 
 ## What is Bloom?
 
-Bloom is my final year project at Aston University, which aims to help individuals explore a forecast of their financial situation. [Take a look here!](https://bloom.money/)
+Bloom was my final year project at Aston University, which aimed to help individuals explore a forecast of their financial situation.
 
 This project contains the frontend of the application. The backend can be viewed [here](https://github.com/swardeo/bloom-services).
+
+### Bloom is now offline :(
+
+Screenshots of the application can be viewed in the [.screenshots directory](.screenshots).
+
+**PLEASE NOTE: the bloom.money domain is no longer associated with myself or this project.**
 
 ## Available Scripts
 
@@ -38,13 +44,13 @@ When running the application locally, you will instead be connected to the live 
 
 A pipeline will deploy the application to the development environment automatically when a pull request is raised against the master branch.
 
-The development environment can be viewed at [dev.bloom.money](https://dev.bloom.money).
+The development environment can be viewed at ~~removed~~.
 
 ### Production
 
 Another pipeline will deploy the application to the production environment automatically when a pull request has been merged to the master branch.
 
-The production environment can be viewed at either [bloom.money](https://bloom.money) or [www.bloom.money](https://www.bloom.money).
+The production environment can be viewed at ~~removed~~.
 
 ## Infrastructure
 
