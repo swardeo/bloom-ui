@@ -14,7 +14,7 @@ This project contains the frontend of the application. The backend can be viewed
 
 Screenshots of the application can be viewed in the [.screenshots directory](.screenshots).
 
-**The bloom.money domain is no longer associated with myself or this project.**
+**PLEASE NOTE: the bloom.money domain is no longer associated with myself or this project.**
 
 ## Available Scripts
 
@@ -44,13 +44,13 @@ When running the application locally, you will instead be connected to the live 
 
 A pipeline will deploy the application to the development environment automatically when a pull request is raised against the master branch.
 
-The development environment can be viewed at ~~https://dev.bloom.money~~.
+The development environment can be viewed at ~~removed~~.
 
 ### Production
 
 Another pipeline will deploy the application to the production environment automatically when a pull request has been merged to the master branch.
 
-The production environment can be viewed at either ~~https://bloom.money~~ or ~~https://www.bloom.money~~.
+The production environment can be viewed at ~~removed~~.
 
 ## Infrastructure
 
